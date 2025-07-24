@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/datasources/supabase_auth_datasource.dart';
+import '../../application/forgot_password_bloc.dart';
+import '../widgets/forgot_password_form.dart';
 
-// Stub for ForgotPasswordPage
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Forgot Password Page')),
+      appBar: AppBar(title: const Text('Reset Password')),
+      body: BlocProvider(
+        create: (_) => ForgotPasswordBloc(datasource: SupabaseAuthDatasource()),
+        child: const ForgotPasswordForm(),
+      ),
     );
   }
 }

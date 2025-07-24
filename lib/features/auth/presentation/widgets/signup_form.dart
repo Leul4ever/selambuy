@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/signup_bloc.dart';
 import '../blocs/signup_event.dart';
 import '../blocs/signup_state.dart';
-import 'input_field.dart';
 import 'primary_button.dart';
+import 'password_strength_indicator.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -19,6 +19,10 @@ class _SignupFormState extends State<SignupForm> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _nameFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+  final _confirmPasswordFocus = FocusNode();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _showPasswordRules = false;
@@ -29,6 +33,10 @@ class _SignupFormState extends State<SignupForm> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _nameFocus.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    _confirmPasswordFocus.dispose();
     super.dispose();
   }
 
@@ -100,77 +108,107 @@ class _SignupFormState extends State<SignupForm> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Name
-                        InputField(
-                          label: 'Full Name',
+                        TextFormField(
                           controller: _nameController,
-                          prefixIcon: const Icon(Icons.person_outline),
-                          errorText: state.fieldErrors['name'],
+                          focusNode: _nameFocus,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            labelText: 'Full Name',
+                            prefixIcon: const Icon(Icons.person_outline),
+                            errorText: state.fieldErrors['name'],
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          autofillHints: const [AutofillHints.name],
                           onChanged: (value) => context
                               .read<SignupBloc>()
                               .add(NameChanged(value)),
-                          autofillHints: const [AutofillHints.name],
+                          onFieldSubmitted: (_) =>
+                              FocusScope.of(context).requestFocus(_emailFocus),
                         ),
                         const SizedBox(height: 16),
                         // Email
-                        InputField(
-                          label: 'Email',
+                        TextFormField(
                           controller: _emailController,
-                          prefixIcon: const Icon(Icons.email_outlined),
-                          errorText: state.fieldErrors['email'],
+                          focusNode: _emailFocus,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            errorText: state.fieldErrors['email'],
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
                           keyboardType: TextInputType.emailAddress,
+                          autofillHints: const [AutofillHints.email],
                           onChanged: (value) => context
                               .read<SignupBloc>()
                               .add(EmailChanged(value)),
-                          autofillHints: const [AutofillHints.email],
+                          onFieldSubmitted: (_) => FocusScope.of(context)
+                              .requestFocus(_passwordFocus),
                         ),
                         const SizedBox(height: 16),
                         // Password
-                        InputField(
-                          label: 'Password',
+                        TextFormField(
                           controller: _passwordController,
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          errorText: state.fieldErrors['password'],
-                          obscureText: _obscurePassword,
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () => setState(
-                                () => _obscurePassword = !_obscurePassword),
+                          focusNode: _passwordFocus,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            prefixIcon: const Icon(Icons.lock_outline),
+                            errorText: state.fieldErrors['password'],
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            suffixIcon: IconButton(
+                              icon: Icon(_obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () => setState(
+                                  () => _obscurePassword = !_obscurePassword),
+                            ),
                           ),
-                          onChanged: (value) => context
-                              .read<SignupBloc>()
-                              .add(PasswordChanged(value)),
+                          obscureText: _obscurePassword,
                           autofillHints: const [AutofillHints.newPassword],
+                          onChanged: (value) {
+                            context
+                                .read<SignupBloc>()
+                                .add(PasswordChanged(value));
+                            setState(() {});
+                          },
                           onTap: () =>
                               setState(() => _showPasswordRules = true),
-                          focusNode: FocusNode()
-                            ..addListener(() {
-                              setState(() => _showPasswordRules =
-                                  _passwordController.selection.baseOffset !=
-                                      -1);
-                            }),
+                          onFieldSubmitted: (_) => FocusScope.of(context)
+                              .requestFocus(_confirmPasswordFocus),
                         ),
+                        const SizedBox(height: 8),
+                        PasswordStrengthIndicator(
+                            password: _passwordController.text),
                         _passwordRules(context),
                         // Confirm Password
-                        InputField(
-                          label: 'Confirm Password',
+                        TextFormField(
                           controller: _confirmPasswordController,
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          errorText: state.fieldErrors['confirmPassword'],
-                          obscureText: _obscureConfirmPassword,
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscureConfirmPassword
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () => setState(() =>
-                                _obscureConfirmPassword =
-                                    !_obscureConfirmPassword),
+                          focusNode: _confirmPasswordFocus,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            prefixIcon: const Icon(Icons.lock_outline),
+                            errorText: state.fieldErrors['confirmPassword'],
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            suffixIcon: IconButton(
+                              icon: Icon(_obscureConfirmPassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () => setState(() =>
+                                  _obscureConfirmPassword =
+                                      !_obscureConfirmPassword),
+                            ),
                           ),
+                          obscureText: _obscureConfirmPassword,
+                          autofillHints: const [AutofillHints.newPassword],
                           onChanged: (value) => context
                               .read<SignupBloc>()
                               .add(ConfirmPasswordChanged(value)),
-                          autofillHints: const [AutofillHints.newPassword],
                         ),
                         const SizedBox(height: 24),
                         // Create Account button
@@ -230,7 +268,7 @@ class _SignupFormState extends State<SignupForm> {
                             const Text('Already have an account? '),
                             GestureDetector(
                               onTap: () {
-                                // TODO: Navigate to login
+                                Navigator.of(context).pushNamed('/login');
                               },
                               child: Text(
                                 'Log in',

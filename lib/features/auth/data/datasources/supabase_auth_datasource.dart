@@ -10,4 +10,10 @@ class SupabaseAuthDatasource {
     // TODO: Implement actual Supabase signup
     return UserEntity(); // Stub
   }
+
+  Future<void> resetPasswordForEmail(String email) async {
+    // TODO: Implement actual Supabase reset password
+    await Future.delayed(Duration(seconds: 1)); // Simulate network
+    if (!email.contains('@')) throw Exception('Invalid email');
+  }
 }

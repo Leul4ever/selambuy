@@ -106,7 +106,8 @@ class _LoginFormState extends State<LoginForm> {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
-                              // TODO: Navigate to forgot password
+                              Navigator.of(context)
+                                  .pushNamed('/forgot-password');
                             },
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
@@ -184,11 +185,7 @@ class _LoginFormState extends State<LoginForm> {
                             const Text("Don't have an account? "),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignupPage(),
-                                  ),
-                                );
+                                Navigator.of(context).pushNamed('/signup');
                               },
                               child: Text(
                                 'Sign up',
