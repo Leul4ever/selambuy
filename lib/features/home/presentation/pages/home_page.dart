@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../notifications/presentation/pages/notification_screen.dart';
 import '../widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,42 +16,42 @@ class _HomePageState extends State<HomePage> {
   final List<Map<String, String>> products = [
     {
       'image':
-          'https://images.unsplash.com/photo-1513708927688-890fe8c7b8c3?auto=format&fit=crop&w=400&q=80',
+          'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80',
       'name': 'Eco Cotton T-Shirt',
       'price': ' 20.00',
       'category': 'Eco',
     },
     {
       'image':
-          'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80',
+          'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=300&q=80',
       'name': 'Organic Denim Jeans',
       'price': ' 45.00',
       'category': 'Men',
     },
     {
       'image':
-          'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+          'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=300&q=80',
       'name': 'Handmade Tote Bag',
       'price': ' 35.00',
       'category': 'Women',
     },
     {
       'image':
-          'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80',
+          'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=300&q=80',
       'name': 'Local Leather Wallet',
       'price': ' 25.00',
       'category': 'Local',
     },
     {
       'image':
-          'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+          'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=300&q=80',
       'name': 'Eco Sneakers',
       'price': ' 60.00',
       'category': 'Eco',
     },
     {
       'image':
-          'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+          'https://images.unsplash.com/photo-1582142306909-195724d33ffc?auto=format&fit=crop&w=300&q=80',
       'name': 'Recycled Sunglasses',
       'price': ' 15.00',
       'category': 'Women',
@@ -69,69 +70,91 @@ class _HomePageState extends State<HomePage> {
     final isTablet = MediaQuery.of(context).size.width > 600;
     return Scaffold(
       backgroundColor: colorScheme.background,
+      appBar: AppBar(
+        backgroundColor: colorScheme.background,
+        elevation: 0,
+        title: const Text('Home'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_none),
+            tooltip: 'Notifications',
+            onPressed: () {
+              if (NotificationScreen.isLoggedIn) {
+                Navigator.of(context).pushNamed('/notifications');
+              } else {
+                Navigator.of(context).pushNamed('/login');
+              }
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsets.symmetric(horizontal: isTablet ? 32 : 16, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Search bar
-              Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 12),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search products',
-                    prefixIcon: const Icon(Icons.search),
-                    filled: true,
-                    fillColor: colorScheme.surfaceVariant,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide.none,
+              EdgeInsets.symmetric(horizontal: isTablet ? 32 : 16, vertical: 4),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Search bar
+                Padding(
+                  padding: const EdgeInsets.only(top: 4, bottom: 8),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search products',
+                      prefixIcon: const Icon(Icons.search),
+                      filled: true,
+                      fillColor: colorScheme.surfaceVariant,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 16),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // Category filters
-              SizedBox(
-                height: 40,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
-                  itemBuilder: (context, index) {
-                    final selected = selectedCategory == index;
-                    return ChoiceChip(
-                      label: Text(categories[index]),
-                      selected: selected,
-                      onSelected: (_) =>
-                          setState(() => selectedCategory = index),
-                      selectedColor: colorScheme.primary.withOpacity(0.15),
-                      labelStyle: TextStyle(
-                        color: selected
-                            ? colorScheme.primary
-                            : colorScheme.onSurface,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      backgroundColor: colorScheme.surfaceVariant,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                    );
-                  },
+                // Category filters
+                SizedBox(
+                  height: 40,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categories.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final selected = selectedCategory == index;
+                      return ChoiceChip(
+                        label: Text(categories[index]),
+                        selected: selected,
+                        onSelected: (_) =>
+                            setState(() => selectedCategory = index),
+                        selectedColor: colorScheme.primary.withOpacity(0.15),
+                        labelStyle: TextStyle(
+                          color: selected
+                              ? colorScheme.primary
+                              : colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        backgroundColor: colorScheme.surfaceVariant,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              // Product grid
-              Expanded(
-                child: GridView.builder(
+                const SizedBox(height: 8),
+                // Product grid
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: isTablet ? 3 : 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                     childAspectRatio:
-                        0.8, // Increased for more vertical space, prevents overflow
+                        0.65, // Decreased to give more vertical space for content
                   ),
                   itemCount: filteredProducts.length,
                   itemBuilder: (context, index) {
@@ -144,8 +167,8 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
