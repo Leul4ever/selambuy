@@ -68,6 +68,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final isTablet = MediaQuery.of(context).size.width > 600;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final appBarHeight = AppBar().preferredSize.height;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return Scaffold(
       backgroundColor: colorScheme.background,
       appBar: AppBar(
@@ -90,71 +95,73 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: isTablet ? 32 : 16, vertical: 4),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Search bar
-                Padding(
-                  padding: const EdgeInsets.only(top: 4, bottom: 8),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search products',
-                      prefixIcon: const Icon(Icons.search),
-                      filled: true,
-                      fillColor: colorScheme.surfaceVariant,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24),
-                        borderSide: BorderSide.none,
-                      ),
+          padding: EdgeInsets.symmetric(
+            horizontal: isTablet ? 32 : 16,
+            vertical: 8,
+          ),
+          child: Column(
+            children: [
+              // Search bar
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search products',
+                    prefixIcon: const Icon(Icons.search),
+                    filled: true,
+                    fillColor: colorScheme.surfaceVariant,
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 16,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                      borderSide: BorderSide.none,
                     ),
                   ),
                 ),
-                // Category filters
-                SizedBox(
-                  height: 40,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 12),
-                    itemBuilder: (context, index) {
-                      final selected = selectedCategory == index;
-                      return ChoiceChip(
-                        label: Text(categories[index]),
-                        selected: selected,
-                        onSelected: (_) =>
-                            setState(() => selectedCategory = index),
-                        selectedColor: colorScheme.primary.withOpacity(0.15),
-                        labelStyle: TextStyle(
-                          color: selected
-                              ? colorScheme.primary
-                              : colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        backgroundColor: colorScheme.surfaceVariant,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // Product grid
-                GridView.builder(
+              ),
+              // Category filters
+              SizedBox(
+                height: 40,
+                child: ListView.separated(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  itemBuilder: (context, index) {
+                    final selected = selectedCategory == index;
+                    return ChoiceChip(
+                      label: Text(categories[index]),
+                      selected: selected,
+                      onSelected: (_) =>
+                          setState(() => selectedCategory = index),
+                      selectedColor: colorScheme.primary.withOpacity(0.15),
+                      labelStyle: TextStyle(
+                        color: selected
+                            ? colorScheme.primary
+                            : colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      backgroundColor: colorScheme.surfaceVariant,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Product grid
+              Expanded(
+                child: GridView.builder(
+                  padding: EdgeInsets.only(bottom: bottomPadding + 16),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: isTablet ? 3 : 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
-                    childAspectRatio:
-                        0.65, // Decreased to give more vertical space for content
+                    childAspectRatio: 0.75, // Adjusted for better content fit
                   ),
                   itemCount: filteredProducts.length,
                   itemBuilder: (context, index) {
@@ -167,8 +174,8 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

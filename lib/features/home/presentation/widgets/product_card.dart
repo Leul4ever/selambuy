@@ -22,12 +22,9 @@ class ProductCard extends StatelessWidget {
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      margin: const EdgeInsets.all(8),
-      clipBehavior:
-          Clip.antiAlias, // Ensures children are clipped to card shape
+      margin: const EdgeInsets.all(4), // Reduced margin to prevent overflow
+      clipBehavior: Clip.antiAlias,
       child: Column(
-        mainAxisSize: MainAxisSize
-            .min, // Prevent overflow by letting content determine height
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // --- Product Image Section ---
@@ -40,17 +37,16 @@ class ProductCard extends StatelessWidget {
               ),
               child: Image.network(
                 imageUrl,
-                fit: BoxFit.cover, // Fill the box, cropping if needed
+                fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
                 errorBuilder: (_, __, ___) => Container(
                   color: colorScheme.surfaceVariant,
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/placeholder_product.png',
-                    fit: BoxFit.contain,
-                    width: 60,
-                    height: 60,
+                  child: Icon(
+                    Icons.image_not_supported,
+                    size: 40,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
               ),
@@ -59,31 +55,30 @@ class ProductCard extends StatelessWidget {
           // --- Product Info Section ---
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  12, 8, 12, 8), // Padding around text content
+              padding: const EdgeInsets.all(8), // Reduced padding
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Product name and price
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
                       Text(
                         price,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ],
                   ),
@@ -93,8 +88,16 @@ class ProductCard extends StatelessWidget {
                     children: [
                       const VerifiedBadge(),
                       IconButton(
-                        icon: Icon(Icons.add_shopping_cart,
-                            color: colorScheme.primary, size: 22),
+                        icon: Icon(
+                          Icons.add_shopping_cart,
+                          color: colorScheme.primary,
+                          size: 20, // Reduced size
+                        ),
+                        padding: EdgeInsets.zero, // Remove padding
+                        constraints: const BoxConstraints(
+                          minWidth: 32,
+                          minHeight: 32,
+                        ),
                         onPressed: () {
                           if (!isLoggedIn) {
                             showDialog(
@@ -102,7 +105,8 @@ class ProductCard extends StatelessWidget {
                               builder: (context) => AlertDialog(
                                 title: const Text('Authentication Required'),
                                 content: const Text(
-                                    'You need to log in or register to continue.'),
+                                  'You need to log in or register to continue.',
+                                ),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

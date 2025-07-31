@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../auth/presentation/pages/login_page.dart';
+import '../../../auth/presentation/pages/login_screen.dart';
 import '../pages/notification_screen.dart';
 
 class NotificationRoutes {
@@ -11,7 +11,7 @@ class NotificationRoutes {
         bool isLoggedIn = NotificationScreen.isLoggedIn;
         return MaterialPageRoute(
           builder: (_) =>
-              isLoggedIn ? const NotificationScreen() : const LoginPage(),
+              isLoggedIn ? const NotificationScreen() : const LoginScreen(),
           settings: settings,
         );
       default:

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/forgot_password_bloc.dart';
 import 'email_text_field.dart';
 import 'primary_button.dart';
-import '../pages/login_page.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({Key? key}) : super(key: key);
