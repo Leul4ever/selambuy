@@ -86,206 +86,358 @@ class _SignupFormState extends State<SignupForm> {
         }
       },
       builder: (context, state) {
-        return Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: isTablet ? 120 : 24,
-              vertical: isTablet ? 48 : 24,
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 400),
-              child: Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24)),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 32),
+              // Name field
+              TextFormField(
+                controller: _nameController,
+                focusNode: _nameFocus,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.person_outline,
+                    color: Color(0xFF4CAF50),
+                  ),
+                  labelText: 'Full Name',
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[50],
+                  errorText: state.fieldErrors['name'],
+                ),
+                autofillHints: const [AutofillHints.name],
+                onChanged: (value) =>
+                    context.read<SignupBloc>().add(NameChanged(value)),
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_emailFocus),
+              ),
+              const SizedBox(height: 16),
+              // Email field
+              TextFormField(
+                controller: _emailController,
+                focusNode: _emailFocus,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.email_outlined,
+                    color: Color(0xFF4CAF50),
+                  ),
+                  labelText: 'Email',
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[50],
+                  errorText: state.fieldErrors['email'],
+                ),
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
+                onChanged: (value) =>
+                    context.read<SignupBloc>().add(EmailChanged(value)),
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_passwordFocus),
+              ),
+              const SizedBox(height: 16),
+              // Password field
+              TextFormField(
+                controller: _passwordController,
+                focusNode: _passwordFocus,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: Color(0xFF4CAF50),
+                  ),
+                  labelText: 'Password',
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[50],
+                  errorText: state.fieldErrors['password'],
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () =>
+                        setState(() => _obscurePassword = !_obscurePassword),
+                  ),
+                ),
+                obscureText: _obscurePassword,
+                autofillHints: const [AutofillHints.newPassword],
+                onChanged: (value) {
+                  context.read<SignupBloc>().add(PasswordChanged(value));
+                  setState(() {});
+                },
+                onTap: () => setState(() => _showPasswordRules = true),
+                onFieldSubmitted: (_) =>
+                    FocusScope.of(context).requestFocus(_confirmPasswordFocus),
+              ),
+              const SizedBox(height: 8),
+              PasswordStrengthIndicator(password: _passwordController.text),
+              _passwordRules(context),
+              const SizedBox(height: 16),
+              // Confirm Password field
+              TextFormField(
+                controller: _confirmPasswordController,
+                focusNode: _confirmPasswordFocus,
+                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: Color(0xFF4CAF50),
+                  ),
+                  labelText: 'Confirm Password',
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[50],
+                  errorText: state.fieldErrors['confirmPassword'],
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () => setState(() =>
+                        _obscureConfirmPassword = !_obscureConfirmPassword),
+                  ),
+                ),
+                obscureText: _obscureConfirmPassword,
+                autofillHints: const [AutofillHints.newPassword],
+                onChanged: (value) => context
+                    .read<SignupBloc>()
+                    .add(ConfirmPasswordChanged(value)),
+              ),
+              const SizedBox(height: 24),
+              // Create Account button
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4CAF50),
+                    foregroundColor: Colors.white,
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 2,
+                  ),
+                  onPressed: state.status == SignupStatus.loading
+                      ? null
+                      : () {
+                          context.read<SignupBloc>().add(SignupSubmitted());
+                        },
+                  child: state.status == SignupStatus.loading
+                      ? const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        )
+                      : const Text('Signup'),
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Divider with or
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      thickness: 1,
+                      color: Colors.grey[300],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      'or',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      thickness: 1,
+                      color: Colors.grey[300],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              // Social media sign-in options
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Google sign in button
+                  SizedBox(
+                    width: 52,
+                    height: 52,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey[300]!),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.zero,
+                      ),
+                      onPressed: () {
+                        // TODO: Implement Google sign-in
+                      },
+                      child: const Icon(
+                        Icons.g_mobiledata,
+                        size: 24,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  // Facebook sign in button
+                  SizedBox(
+                    width: 52,
+                    height: 52,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey[300]!),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.zero,
+                      ),
+                      onPressed: () {
+                        // TODO: Implement Facebook sign-in
+                      },
+                      child: const Icon(
+                        Icons.facebook,
+                        size: 24,
+                        color: Color(0xFF1877F2),
+                      ),
+                    ),
+                  ),
+                  // Twitter (X) sign in button
+                  SizedBox(
+                    width: 52,
+                    height: 52,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey[300]!),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.zero,
+                      ),
+                      onPressed: () {
+                        // TODO: Implement Twitter sign-in
+                      },
+                      child: const Icon(
+                        Icons.close,
+                        size: 24,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              // Sign in link
+              Center(
+                child: GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/login'),
+                  child: RichText(
+                    text: TextSpan(
+                      text: "Already have an account? ",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
                       children: [
-                        // Name
-                        TextFormField(
-                          controller: _nameController,
-                          focusNode: _nameFocus,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            labelText: 'Full Name',
-                            prefixIcon: const Icon(Icons.person_outline),
-                            errorText: state.fieldErrors['name'],
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12)),
+                        TextSpan(
+                          text: 'Sign In',
+                          style: const TextStyle(
+                            color: Color(0xFF4CAF50),
+                            fontWeight: FontWeight.bold,
                           ),
-                          autofillHints: const [AutofillHints.name],
-                          onChanged: (value) => context
-                              .read<SignupBloc>()
-                              .add(NameChanged(value)),
-                          onFieldSubmitted: (_) =>
-                              FocusScope.of(context).requestFocus(_emailFocus),
-                        ),
-                        const SizedBox(height: 16),
-                        // Email
-                        TextFormField(
-                          controller: _emailController,
-                          focusNode: _emailFocus,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            prefixIcon: const Icon(Icons.email_outlined),
-                            errorText: state.fieldErrors['email'],
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          autofillHints: const [AutofillHints.email],
-                          onChanged: (value) => context
-                              .read<SignupBloc>()
-                              .add(EmailChanged(value)),
-                          onFieldSubmitted: (_) => FocusScope.of(context)
-                              .requestFocus(_passwordFocus),
-                        ),
-                        const SizedBox(height: 16),
-                        // Password
-                        TextFormField(
-                          controller: _passwordController,
-                          focusNode: _passwordFocus,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            errorText: state.fieldErrors['password'],
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12)),
-                            suffixIcon: IconButton(
-                              icon: Icon(_obscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () => setState(
-                                  () => _obscurePassword = !_obscurePassword),
-                            ),
-                          ),
-                          obscureText: _obscurePassword,
-                          autofillHints: const [AutofillHints.newPassword],
-                          onChanged: (value) {
-                            context
-                                .read<SignupBloc>()
-                                .add(PasswordChanged(value));
-                            setState(() {});
-                          },
-                          onTap: () =>
-                              setState(() => _showPasswordRules = true),
-                          onFieldSubmitted: (_) => FocusScope.of(context)
-                              .requestFocus(_confirmPasswordFocus),
-                        ),
-                        const SizedBox(height: 8),
-                        PasswordStrengthIndicator(
-                            password: _passwordController.text),
-                        _passwordRules(context),
-                        // Confirm Password
-                        TextFormField(
-                          controller: _confirmPasswordController,
-                          focusNode: _confirmPasswordFocus,
-                          textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            errorText: state.fieldErrors['confirmPassword'],
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12)),
-                            suffixIcon: IconButton(
-                              icon: Icon(_obscureConfirmPassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () => setState(() =>
-                                  _obscureConfirmPassword =
-                                      !_obscureConfirmPassword),
-                            ),
-                          ),
-                          obscureText: _obscureConfirmPassword,
-                          autofillHints: const [AutofillHints.newPassword],
-                          onChanged: (value) => context
-                              .read<SignupBloc>()
-                              .add(ConfirmPasswordChanged(value)),
-                        ),
-                        const SizedBox(height: 24),
-                        // Create Account button
-                        PrimaryButton(
-                          onPressed: state.status == SignupStatus.loading
-                              ? null
-                              : () {
-                                  context
-                                      .read<SignupBloc>()
-                                      .add(SignupSubmitted());
-                                },
-                          isLoading: state.status == SignupStatus.loading,
-                          child: const Text('Create Account'),
-                        ),
-                        const SizedBox(height: 24),
-                        // Divider with OR
-                        Row(
-                          children: [
-                            const Expanded(child: Divider()),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Text('OR',
-                                  style: TextStyle(
-                                      color: colorScheme.onSurfaceVariant)),
-                            ),
-                            const Expanded(child: Divider()),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        // Google button
-                        OutlinedButton.icon(
-                          icon: Image.asset(
-                            'assets/google_logo.png',
-                            height: 20,
-                            width: 20,
-                            errorBuilder: (_, __, ___) =>
-                                const Icon(Icons.g_mobiledata, size: 24),
-                          ),
-                          label: const Text('Sign up with Google'),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            textStyle: Theme.of(context).textTheme.titleMedium,
-                            side: BorderSide(color: colorScheme.outlineVariant),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          onPressed: () {
-                            // TODO: Implement Google sign-up
-                          },
-                        ),
-                        const SizedBox(height: 24),
-                        // Footer
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Already have an account? '),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushNamed('/login');
-                              },
-                              child: Text(
-                                'Log in',
-                                style: TextStyle(
-                                  color: colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
+              const SizedBox(height: 24),
+            ],
           ),
         );
       },

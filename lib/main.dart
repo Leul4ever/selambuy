@@ -5,9 +5,13 @@ import 'features/auth/presentation/pages/forgot_password_page.dart';
 import 'features/home/presentation/pages/splash_page.dart';
 import 'features/home/presentation/pages/onboarding_screen.dart';
 import 'features/home/presentation/pages/home_page.dart';
+import 'features/home/presentation/pages/settings_page.dart';
 import 'features/notifications/presentation/routes/notification_routes.dart';
+import 'core/service_locator.dart';
+import 'core/theme_provider.dart';
 
 void main() {
+  init();
   runApp(const MyApp());
 }
 
@@ -18,38 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'YeneGebiya',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF4CAF50),
-          primary: const Color(0xFF4CAF50),
-          secondary: const Color(0xFF2E7D32),
-        ),
-        useMaterial3: true,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF4CAF50),
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Colors.grey[300]!),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Color(0xFF4CAF50), width: 2),
-          ),
-          filled: true,
-          fillColor: Colors.grey[50],
-        ),
-      ),
+      theme: ThemeProvider.lightTheme,
+      darkTheme: ThemeProvider.darkTheme,
       initialRoute: '/',
       onGenerateRoute: (settings) {
         // Delegate notification routes
@@ -61,7 +35,8 @@ class MyApp extends StatelessWidget {
           case '/':
             return MaterialPageRoute(builder: (_) => const SplashPage());
           case '/onboarding':
-            return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+            return MaterialPageRoute(
+                builder: (_) => const OnboardingScreen());
           case '/home':
             return MaterialPageRoute(builder: (_) => const HomePage());
           case '/login':
@@ -71,6 +46,9 @@ class MyApp extends StatelessWidget {
           case '/forgot-password':
             return MaterialPageRoute(
                 builder: (_) => const ForgotPasswordPage());
+          case '/settings':
+            return MaterialPageRoute(
+                builder: (_) => const SettingsPage());
           default:
             return MaterialPageRoute(
               builder: (_) => const Scaffold(

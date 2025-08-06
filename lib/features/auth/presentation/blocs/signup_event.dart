@@ -34,4 +34,4 @@ class ConfirmPasswordChanged extends SignupEvent {
   List<Object?> get props => [confirmPassword];
 }
 
-class SignupSubmitted extends SignupEvent {}
+class SignupSubmitted extends SignupEvent {} 

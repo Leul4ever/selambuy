@@ -78,7 +78,21 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: colorScheme.background,
         elevation: 0,
-        title: const Text('Home'),
+        title: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/image.png',
+                width: 32,
+                height: 32,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Text('Home'),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none),
@@ -89,6 +103,13 @@ class _HomePageState extends State<HomePage> {
               } else {
                 Navigator.of(context).pushNamed('/login');
               }
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+            onPressed: () {
+              Navigator.of(context).pushNamed('/settings');
             },
           ),
         ],
@@ -161,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisCount: isTablet ? 3 : 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
-                    childAspectRatio: 0.75, // Adjusted for better content fit
+                    childAspectRatio: 0.6, // Lowered from 0.7 for more height
                   ),
                   itemCount: filteredProducts.length,
                   itemBuilder: (context, index) {

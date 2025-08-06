@@ -118,60 +118,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                                 ],
                               ),
                               child: Center(
-                                child: Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    gradient: const LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xFF2196F3), // Blue gradient
-                                        Color(0xFFFF9800), // Orange gradient
-                                      ],
-                                      stops: [0.0, 1.0],
-                                    ),
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      // S-shaped curve divider
-                                      Positioned(
-                                        left: 35,
-                                        top: 0,
-                                        bottom: 0,
-                                        child: Container(
-                                          width: 4,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                          ),
-                                        ),
-                                      ),
-                                      // Shopping cart with musical note
-                                      const Center(
-                                        child: Icon(
-                                          Icons.shopping_cart,
-                                          size: 40,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      // Musical note overlay
-                                      Positioned(
-                                        right: 8,
-                                        top: 15,
-                                        child: Container(
-                                          width: 12,
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.asset(
+                                    'assets/images/image.png',
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               ),

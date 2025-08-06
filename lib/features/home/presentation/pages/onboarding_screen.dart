@@ -267,7 +267,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
           // Promotional banner
           Container(
-            height: 120,
+            height: 80, // Reduced from 100
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: const LinearGradient(
@@ -279,7 +279,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(8), // Reduced from 16
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -287,26 +287,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const Text(
                           '30% OFF',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 16, // Reduced from 20
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 1), // Reduced from 2
                         const Text(
                           'Today\'s Special',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 12, // Reduced from 14
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 1), // Reduced from 2
                         Text(
                           'Get discount for every order, only valid for today.',
                           style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white.withOpacity(0.9),
+                            fontSize: 9, // Reduced from 10
+                            color: Colors.white70,
                           ),
                         ),
                       ],
@@ -325,7 +325,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     child: const Icon(
                       Icons.person,
-                      size: 60,
+                      size: 36, // Reduced from 48
                       color: Colors.white,
                     ),
                   ),
@@ -424,11 +424,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Stack(
         children: [
           // Placeholder for product image
-          Center(
-            child: Icon(
-              Icons.image,
-              size: 40,
-              color: Colors.grey[400],
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              imagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              errorBuilder: (_, __, ___) => Icon(
+                Icons.image,
+                size: 40,
+                color: Colors.grey[400],
+              ),
             ),
           ),
           // Rating

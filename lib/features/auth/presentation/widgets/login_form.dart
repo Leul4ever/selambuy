@@ -178,6 +178,82 @@ class _LoginFormState extends State<LoginForm> {
                           },
                         ),
                         const SizedBox(height: 24),
+                        // Social media sign-in options
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Google sign in button
+                            SizedBox(
+                              width: 52,
+                              height: 52,
+                              child: OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  side: BorderSide(color: Colors.grey[300]!),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  padding: EdgeInsets.zero,
+                                ),
+                                onPressed: () {
+                                  // TODO: Implement Google sign-in
+                                },
+                                child: const Icon(
+                                  Icons.g_mobiledata,
+                                  size: 24,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                            // Facebook sign in button
+                            SizedBox(
+                              width: 52,
+                              height: 52,
+                              child: OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  side: BorderSide(color: Colors.grey[300]!),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  padding: EdgeInsets.zero,
+                                ),
+                                onPressed: () {
+                                  // TODO: Implement Facebook sign-in
+                                },
+                                child: const Icon(
+                                  Icons.facebook,
+                                  size: 24,
+                                  color: Color(0xFF1877F2),
+                                ),
+                              ),
+                            ),
+                            // Twitter (X) sign in button
+                            SizedBox(
+                              width: 52,
+                              height: 52,
+                              child: OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  side: BorderSide(color: Colors.grey[300]!),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  padding: EdgeInsets.zero,
+                                ),
+                                onPressed: () {
+                                  // TODO: Implement Twitter sign-in
+                                },
+                                child: const Icon(
+                                  Icons.flutter_dash,
+                                  size: 24,
+                                  color: Color(0xFF1DA1F2),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
                         // Footer
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -19,43 +19,43 @@ class ProductCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     // Assume user is not logged in for now
     bool isLoggedIn = false;
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      margin: const EdgeInsets.all(4), // Reduced margin to prevent overflow
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // --- Product Image Section ---
-          AspectRatio(
-            aspectRatio: 1,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-                errorBuilder: (_, __, ___) => Container(
-                  color: colorScheme.surfaceVariant,
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.image_not_supported,
-                    size: 40,
-                    color: colorScheme.onSurfaceVariant,
+    return SizedBox(
+      height: 220, // Increased from 180 to 220 to prevent overflow
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        margin: const EdgeInsets.all(4),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 1.1,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                  errorBuilder: (_, __, ___) => Container(
+                    color: colorScheme.surfaceVariant,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.image_not_supported,
+                      size: 32,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          // --- Product Info Section ---
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8), // Reduced padding
+            // --- Product Info Section ---
+            Padding(
+              padding: const EdgeInsets.all(6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,16 +68,18 @@ class ProductCard extends StatelessWidget {
                         name,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               fontWeight: FontWeight.bold,
+                              fontSize: 13,
                             ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         price,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: colorScheme.primary,
                               fontWeight: FontWeight.bold,
+                              fontSize: 12,
                             ),
                       ),
                     ],
@@ -86,14 +88,14 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const VerifiedBadge(),
+                      // Removed: const VerifiedBadge(),
                       IconButton(
                         icon: Icon(
                           Icons.add_shopping_cart,
                           color: colorScheme.primary,
-                          size: 20, // Reduced size
+                          size: 20,
                         ),
-                        padding: EdgeInsets.zero, // Remove padding
+                        padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(
                           minWidth: 32,
                           minHeight: 32,
@@ -142,8 +144,8 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
