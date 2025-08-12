@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../notifications/presentation/pages/notification_screen.dart';
 import '../widgets/product_card.dart';
+import '../../../../core/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: colorScheme.background,
       appBar: AppBar(
-        backgroundColor: colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         title: Row(
           children: [
@@ -94,6 +95,27 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         actions: [
+          // Theme toggle button
+          IconButton(
+            icon: Icon(
+              ThemeProvider.currentThemeMode == ThemeMode.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            onPressed: () {
+              final newMode = ThemeProvider.currentThemeMode == ThemeMode.dark
+                  ? ThemeMode.light
+                  : ThemeMode.dark;
+              ThemeProvider.setCurrentThemeMode(newMode);
+              // Force app rebuild
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.pushNamed(context, '/settings'),
+          ),
           IconButton(
             icon: const Icon(Icons.notifications_none),
             tooltip: 'Notifications',
@@ -103,13 +125,6 @@ class _HomePageState extends State<HomePage> {
               } else {
                 Navigator.of(context).pushNamed('/login');
               }
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            tooltip: 'Settings',
-            onPressed: () {
-              Navigator.of(context).pushNamed('/settings');
             },
           ),
         ],

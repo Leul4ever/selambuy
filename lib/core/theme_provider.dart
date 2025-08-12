@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  static ThemeMode _currentThemeMode =
+      ThemeMode.light; // Static variable for global access
+
+  ThemeMode _themeMode = ThemeMode.light;
 
   ThemeMode get themeMode => _themeMode;
 
+  // Static getter for current theme mode
+  static ThemeMode get currentThemeMode => _currentThemeMode;
+
   void setThemeMode(ThemeMode mode) {
     _themeMode = mode;
+    _currentThemeMode = mode; // Update static variable
     notifyListeners();
+  }
+
+  // Static method to set theme mode
+  static void setCurrentThemeMode(ThemeMode mode) {
+    _currentThemeMode = mode;
   }
 
   bool get isDarkMode {
     if (_themeMode == ThemeMode.system) {
-      return WidgetsBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
+      return WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+          Brightness.dark;
     }
     return _themeMode == ThemeMode.dark;
   }
@@ -167,4 +180,4 @@ class ThemeProvider extends ChangeNotifier {
       ),
     );
   }
-} 
+}

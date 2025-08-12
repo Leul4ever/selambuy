@@ -140,10 +140,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                         const SizedBox(height: 6),
                         Text(
                           'Discover Fashion That Speaks',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
-                            color:
-                                Theme.of(context).textTheme.bodyMedium?.color,
+                            color: Colors.black54, // Fixed: Use explicit color for visibility
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -167,9 +166,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
 
                   Text(
                     'Sign in to continue your fashion journey',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
-                      color: Theme.of(context).textTheme.bodySmall?.color,
+                      color: Colors.black54, // Fixed: Use explicit color for visibility
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -189,9 +188,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                             color: Color(0xFF4CAF50),
                           ),
                           labelText: 'Email or Phone Number',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Theme.of(context).textTheme.bodySmall?.color,
+                            color: Colors.black54, // Fixed: Use explicit color for visibility
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -230,9 +229,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                             color: Color(0xFF4CAF50),
                           ),
                           labelText: 'Password',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Theme.of(context).textTheme.bodySmall?.color,
+                            color: Colors.black54, // Fixed: Use explicit color for visibility
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -283,9 +282,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                       ),
                       Text(
                         'Remember Me',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: Theme.of(context).textTheme.bodySmall?.color,
+                          color: Colors.black54, // Fixed: Use explicit color for visibility
                         ),
                       ),
                       const Spacer(),
@@ -357,8 +356,8 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           'or',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodySmall?.color,
+                          style: const TextStyle(
+                            color: Colors.black54, // Fixed: Use explicit color for visibility
                             fontWeight: FontWeight.w500,
                           ),
                         ),

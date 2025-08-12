@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'YeneGebiya',
+      themeMode: ThemeProvider.currentThemeMode, // Use current theme mode
       theme: ThemeProvider.lightTheme,
       darkTheme: ThemeProvider.darkTheme,
       initialRoute: '/',
@@ -35,8 +36,7 @@ class MyApp extends StatelessWidget {
           case '/':
             return MaterialPageRoute(builder: (_) => const SplashPage());
           case '/onboarding':
-            return MaterialPageRoute(
-                builder: (_) => const OnboardingScreen());
+            return MaterialPageRoute(builder: (_) => const OnboardingScreen());
           case '/home':
             return MaterialPageRoute(builder: (_) => const HomePage());
           case '/login':
@@ -47,8 +47,7 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
                 builder: (_) => const ForgotPasswordPage());
           case '/settings':
-            return MaterialPageRoute(
-                builder: (_) => const SettingsPage());
+            return MaterialPageRoute(builder: (_) => const SettingsPage());
           default:
             return MaterialPageRoute(
               builder: (_) => const Scaffold(
