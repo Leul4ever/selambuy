@@ -39,6 +39,7 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.success) {
@@ -68,10 +69,10 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                       TextButton(
                         onPressed: () =>
                             Navigator.pushReplacementNamed(context, '/home'),
-                        child: const Text(
+                        child: Text(
                           'Skip',
                           style: TextStyle(
-                            color: Color(0xFF4CAF50),
+                            color: colorScheme.primary,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
@@ -91,11 +92,11 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                           width: 80,
                           height: 80,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: colorScheme.surface,
                             borderRadius: BorderRadius.circular(40),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: colorScheme.shadow.withOpacity(0.1),
                                 blurRadius: 10,
                                 offset: const Offset(0, 5),
                               ),
@@ -119,12 +120,12 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Text(
+                            Text(
                               'Yene',
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF2E7D32),
+                                color: colorScheme.secondary,
                               ),
                             ),
                             Text(
@@ -132,7 +133,7 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
-                                color: const Color(0xFF4CAF50).withOpacity(0.8),
+                                color: colorScheme.primary.withOpacity(0.8),
                               ),
                             ),
                           ],
@@ -140,9 +141,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                         const SizedBox(height: 6),
                         Text(
                           'Discover Fashion That Speaks',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 14,
-                            color: Colors.black54, // Fixed: Use explicit color for visibility
+                            color: colorScheme.onSurface.withOpacity(0.7),
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -152,12 +153,12 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                   const SizedBox(height: 16), // reduced spacing after logo
 
                   // Welcome Text
-                  const Text(
+                  Text(
                     'Welcome Back!',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF2E7D32),
+                      color: colorScheme.secondary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -166,9 +167,9 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
 
                   Text(
                     'Sign in to continue your fashion journey',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54, // Fixed: Use explicit color for visibility
+                      color: colorScheme.onSurface.withOpacity(0.7),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -183,30 +184,30 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                         onChanged: (value) =>
                             context.read<LoginBloc>().add(EmailChanged(value)),
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(
+                          prefixIcon: Icon(
                             Icons.person_outline,
-                            color: Color(0xFF4CAF50),
+                            color: colorScheme.primary,
                           ),
                           labelText: 'Email or Phone Number',
-                          labelStyle: const TextStyle(
+                          labelStyle: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Colors.black54, // Fixed: Use explicit color for visibility
+                            color: colorScheme.onSurface.withOpacity(0.7),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: const BorderSide(color: Colors.grey),
+                            borderSide: BorderSide(color: colorScheme.outline),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: Colors.grey[300]!),
+                            borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: const BorderSide(
-                                color: Color(0xFF4CAF50), width: 2),
+                            borderSide: BorderSide(
+                                color: colorScheme.primary, width: 2),
                           ),
                           filled: true,
-                          fillColor: Colors.grey[50],
+                          fillColor: colorScheme.surfaceContainerHighest,
                         ),
                       );
                     },
@@ -224,36 +225,36 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                             .read<LoginBloc>()
                             .add(PasswordChanged(value)),
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(
+                          prefixIcon: Icon(
                             Icons.lock_outline,
-                            color: Color(0xFF4CAF50),
+                            color: colorScheme.primary,
                           ),
                           labelText: 'Password',
-                          labelStyle: const TextStyle(
+                          labelStyle: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Colors.black54, // Fixed: Use explicit color for visibility
+                            color: colorScheme.onSurface.withOpacity(0.7),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: const BorderSide(color: Colors.grey),
+                            borderSide: BorderSide(color: colorScheme.outline),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: Colors.grey[300]!),
+                            borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: const BorderSide(
-                                color: Color(0xFF4CAF50), width: 2),
+                            borderSide: BorderSide(
+                                color: colorScheme.primary, width: 2),
                           ),
                           filled: true,
-                          fillColor: Colors.grey[50],
+                          fillColor: colorScheme.surfaceContainerHighest,
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscurePassword
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: Colors.grey,
+                              color: colorScheme.onSurface.withOpacity(0.7),
                             ),
                             onPressed: () {
                               setState(() {
@@ -270,36 +271,36 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
 
                   // Remember me and forgot password
                   Row(
-                    children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            _rememberMe = value ?? false;
-                          });
-                        },
-                        activeColor: const Color(0xFF4CAF50),
-                      ),
-                      Text(
-                        'Remember Me',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black54, // Fixed: Use explicit color for visibility
-                        ),
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/forgot-password'),
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            color: Color(0xFF4CAF50),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
+                                         children: [
+                       Checkbox(
+                         value: _rememberMe,
+                         onChanged: (value) {
+                           setState(() {
+                             _rememberMe = value ?? false;
+                           });
+                         },
+                         activeColor: colorScheme.primary,
+                       ),
+                       Text(
+                         'Remember Me',
+                         style: TextStyle(
+                           fontWeight: FontWeight.w500,
+                           color: colorScheme.onSurface.withOpacity(0.7),
+                         ),
+                       ),
+                       const Spacer(),
+                       TextButton(
+                         onPressed: () =>
+                             Navigator.pushNamed(context, '/forgot-password'),
+                         child: Text(
+                           'Forgot Password?',
+                           style: TextStyle(
+                             color: colorScheme.primary,
+                             fontWeight: FontWeight.w600,
+                           ),
+                         ),
+                       ),
+                     ],
                   ),
 
                   const SizedBox(height: 24),
@@ -311,18 +312,18 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                         width: double.infinity,
                         height: 52,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF4CAF50),
-                            foregroundColor: Colors.white,
-                            textStyle: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            elevation: 2,
-                          ),
+                                                     style: ElevatedButton.styleFrom(
+                             backgroundColor: colorScheme.primary,
+                             foregroundColor: colorScheme.onPrimary,
+                             textStyle: const TextStyle(
+                               fontWeight: FontWeight.bold,
+                               fontSize: 16,
+                             ),
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(16),
+                             ),
+                             elevation: 2,
+                           ),
                           onPressed: state.status == LoginStatus.loading
                               ? null
                               : () {
@@ -330,12 +331,12 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                                       .read<LoginBloc>()
                                       .add(LoginSubmitted());
                                 },
-                          child: state.status == LoginStatus.loading
-                              ? const CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                )
-                              : const Text('Sign In'),
+                                                     child: state.status == LoginStatus.loading
+                               ? CircularProgressIndicator(
+                                   valueColor: AlwaysStoppedAnimation<Color>(
+                                       colorScheme.onPrimary),
+                                 )
+                               : const Text('Sign In'),
                         ),
                       );
                     },
@@ -345,30 +346,30 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
 
                   // Divider with or
                   Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.grey[300],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          'or',
-                          style: const TextStyle(
-                            color: Colors.black54, // Fixed: Use explicit color for visibility
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          color: Colors.grey[300],
-                        ),
-                      ),
-                    ],
+                                         children: [
+                       Expanded(
+                         child: Divider(
+                           thickness: 1,
+                           color: colorScheme.outline.withOpacity(0.5),
+                         ),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                         child: Text(
+                           'or',
+                           style: TextStyle(
+                             color: colorScheme.onSurface.withOpacity(0.7),
+                             fontWeight: FontWeight.w500,
+                           ),
+                         ),
+                       ),
+                       Expanded(
+                         child: Divider(
+                           thickness: 1,
+                           color: colorScheme.outline.withOpacity(0.5),
+                         ),
+                       ),
+                     ],
                   ),
 
                   const SizedBox(height: 20),
@@ -377,42 +378,42 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // Google sign in button
-                      SizedBox(
-                        width: 52,
-                        height: 52,
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.grey[300]!),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                          ),
+                                             // Google sign in button
+                       SizedBox(
+                         width: 52,
+                         height: 52,
+                         child: OutlinedButton(
+                           style: OutlinedButton.styleFrom(
+                             side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(16),
+                             ),
+                             backgroundColor: colorScheme.surface,
+                             padding: EdgeInsets.zero,
+                           ),
                           onPressed: () {
                             // TODO: Implement Google sign-in
                           },
-                          child: const Icon(
-                            Icons.g_mobiledata,
-                            size: 24,
-                            color: Colors.red,
-                          ),
+                                                     child: Icon(
+                             Icons.g_mobiledata,
+                             size: 24,
+                             color: Colors.red, // Google brand color
+                           ),
                         ),
                       ),
-                      // Facebook sign in button
-                      SizedBox(
-                        width: 52,
-                        height: 52,
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.grey[300]!),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                          ),
+                                             // Facebook sign in button
+                       SizedBox(
+                         width: 52,
+                         height: 52,
+                         child: OutlinedButton(
+                           style: OutlinedButton.styleFrom(
+                             side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(16),
+                             ),
+                             backgroundColor: colorScheme.surface,
+                             padding: EdgeInsets.zero,
+                           ),
                           onPressed: () {
                             // TODO: Implement Facebook sign-in
                           },
@@ -423,27 +424,27 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                           ),
                         ),
                       ),
-                      // Twitter (X) sign in button
-                      SizedBox(
-                        width: 52,
-                        height: 52,
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.grey[300]!),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                          ),
+                                             // Twitter (X) sign in button
+                       SizedBox(
+                         width: 52,
+                         height: 52,
+                         child: OutlinedButton(
+                           style: OutlinedButton.styleFrom(
+                             side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(16),
+                             ),
+                             backgroundColor: colorScheme.surface,
+                             padding: EdgeInsets.zero,
+                           ),
                           onPressed: () {
                             // TODO: Implement Twitter sign-in
                           },
-                          child: const Icon(
-                            Icons.close,
-                            size: 24,
-                            color: Colors.black,
-                          ),
+                                                     child: Icon(
+                             Icons.close,
+                             size: 24,
+                             color: Color(0xFF1DA1F2), // Twitter/X brand color
+                           ),
                         ),
                       ),
                     ],
@@ -455,23 +456,23 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                     child: GestureDetector(
                       onTap: () => Navigator.pushNamed(context, '/signup'),
                       child: RichText(
-                        text: TextSpan(
-                          text: "Don't have an account? ",
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodySmall?.color,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                          children: const [
-                            TextSpan(
-                              text: 'Sign Up',
-                              style: TextStyle(
-                                color: Color(0xFF4CAF50),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                                                 text: TextSpan(
+                           text: "Don't have an account? ",
+                           style: TextStyle(
+                             color: colorScheme.onSurface.withOpacity(0.7),
+                             fontWeight: FontWeight.w500,
+                             fontSize: 14,
+                           ),
+                           children: [
+                             TextSpan(
+                               text: 'Sign Up',
+                               style: TextStyle(
+                                 color: colorScheme.primary,
+                                 fontWeight: FontWeight.bold,
+                               ),
+                             ),
+                           ],
+                         ),
                       ),
                     ),
                   ),

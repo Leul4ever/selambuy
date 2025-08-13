@@ -1,35 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ThemeProvider extends ChangeNotifier {
-  static ThemeMode _currentThemeMode =
-      ThemeMode.light; // Static variable for global access
-
-  ThemeMode _themeMode = ThemeMode.light;
-
-  ThemeMode get themeMode => _themeMode;
-
-  // Static getter for current theme mode
-  static ThemeMode get currentThemeMode => _currentThemeMode;
-
-  void setThemeMode(ThemeMode mode) {
-    _themeMode = mode;
-    _currentThemeMode = mode; // Update static variable
-    notifyListeners();
-  }
-
-  // Static method to set theme mode
-  static void setCurrentThemeMode(ThemeMode mode) {
-    _currentThemeMode = mode;
-  }
-
-  bool get isDarkMode {
-    if (_themeMode == ThemeMode.system) {
-      return WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-          Brightness.dark;
-    }
-    return _themeMode == ThemeMode.dark;
-  }
-
+class AppThemes {
   // Light Theme
   static ThemeData get lightTheme {
     return ThemeData(
@@ -39,9 +10,8 @@ class ThemeProvider extends ChangeNotifier {
         primary: const Color(0xFF4CAF50),
         secondary: const Color(0xFF2E7D32),
         surface: Colors.white,
-        background: const Color(0xFFF5F5F5),
+        surfaceContainerHighest: const Color(0xFFF5F5F5),
         onSurface: Colors.black87,
-        onBackground: Colors.black87,
       ),
       useMaterial3: true,
       scaffoldBackgroundColor: const Color(0xFFF5F5F5),
@@ -115,9 +85,8 @@ class ThemeProvider extends ChangeNotifier {
         primary: const Color(0xFF4CAF50),
         secondary: const Color(0xFF2E7D32),
         surface: const Color(0xFF1E1E1E),
-        background: const Color(0xFF121212),
+        surfaceContainerHighest: const Color(0xFF121212),
         onSurface: Colors.white,
-        onBackground: Colors.white,
       ),
       useMaterial3: true,
       scaffoldBackgroundColor: const Color(0xFF121212),

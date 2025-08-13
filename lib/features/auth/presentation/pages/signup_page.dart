@@ -11,8 +11,10 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: ConstrainedBox(
@@ -35,10 +37,10 @@ class SignupPage extends StatelessWidget {
                         TextButton(
                           onPressed: () =>
                               Navigator.pushReplacementNamed(context, '/home'),
-                          child: const Text(
+                          child: Text(
                             'Skip',
                             style: TextStyle(
-                              color: Color(0xFF4CAF50),
+                              color: colorScheme.primary,
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
                             ),
@@ -55,12 +57,12 @@ class SignupPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const Text(
+                              Text(
                                 'Yene',
                                 style: TextStyle(
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF2E7D32),
+                                  color: colorScheme.secondary,
                                 ),
                               ),
                               Text(
@@ -68,8 +70,7 @@ class SignupPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold,
-                                  color:
-                                      const Color(0xFF4CAF50).withOpacity(0.8),
+                                  color: colorScheme.primary.withOpacity(0.8),
                                 ),
                               ),
                             ],
@@ -79,7 +80,7 @@ class SignupPage extends StatelessWidget {
                             'Discover Fashion That Speaks',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey[700],
+                              color: colorScheme.onSurface.withOpacity(0.7),
                               fontWeight: FontWeight.w500,
                             ),
                           ),

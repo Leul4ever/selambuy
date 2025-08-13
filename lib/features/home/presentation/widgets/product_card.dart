@@ -42,12 +42,12 @@ class ProductCard extends StatelessWidget {
                   width: double.infinity,
                   height: double.infinity,
                   errorBuilder: (_, __, ___) => Container(
-                    color: colorScheme.surfaceVariant,
+                    color: colorScheme.surfaceContainerHighest,
                     alignment: Alignment.center,
                     child: Icon(
                       Icons.image_not_supported,
                       size: 32,
-                      color: colorScheme.onSurfaceVariant,
+                      color: colorScheme.onSurface,
                     ),
                   ),
                 ),

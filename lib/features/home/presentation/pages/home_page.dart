@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../notifications/presentation/pages/notification_screen.dart';
 import '../widgets/product_card.dart';
-import '../../../../core/theme_provider.dart';
+import '../../../../core/theme/theme_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -75,9 +76,9 @@ class _HomePageState extends State<HomePage> {
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: Row(
           children: [
@@ -96,20 +97,22 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           // Theme toggle button
-          IconButton(
-            icon: Icon(
-              ThemeProvider.currentThemeMode == ThemeMode.dark
-                  ? Icons.light_mode
-                  : Icons.dark_mode,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            onPressed: () {
-              final newMode = ThemeProvider.currentThemeMode == ThemeMode.dark
-                  ? ThemeMode.light
-                  : ThemeMode.dark;
-              ThemeProvider.setCurrentThemeMode(newMode);
-              // Force app rebuild
-              Navigator.pushReplacementNamed(context, '/home');
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              return IconButton(
+                icon: Icon(
+                  themeMode == ThemeMode.dark
+                      ? Icons.light_mode
+                      : Icons.dark_mode,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                onPressed: () {
+                  final newMode = themeMode == ThemeMode.dark
+                      ? ThemeMode.light
+                      : ThemeMode.dark;
+                  context.read<ThemeCubit>().setTheme(newMode);
+                },
+              );
             },
           ),
           IconButton(
@@ -145,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                     hintText: 'Search products',
                     prefixIcon: const Icon(Icons.search),
                     filled: true,
-                    fillColor: colorScheme.surfaceVariant,
+                    fillColor: colorScheme.surfaceContainerHighest,
                     contentPadding: const EdgeInsets.symmetric(
                       vertical: 0,
                       horizontal: 16,
@@ -180,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                             : colorScheme.onSurface,
                         fontWeight: FontWeight.w600,
                       ),
-                      backgroundColor: colorScheme.surfaceVariant,
+                      backgroundColor: colorScheme.surfaceContainerHighest,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),

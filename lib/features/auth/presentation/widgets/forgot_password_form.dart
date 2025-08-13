@@ -61,7 +61,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24)),
-                color: colorScheme.surfaceVariant.withOpacity(0.7),
+                color: colorScheme.surfaceContainerHighest.withOpacity(0.7),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 32),

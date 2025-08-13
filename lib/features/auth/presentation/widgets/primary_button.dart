@@ -22,9 +22,9 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor:
-              enabled ? colorScheme.primary : colorScheme.surfaceVariant,
+              enabled ? colorScheme.primary : colorScheme.surfaceContainerHighest,
           foregroundColor:
-              enabled ? colorScheme.onPrimary : colorScheme.onSurfaceVariant,
+              enabled ? colorScheme.onPrimary : colorScheme.onSurface,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

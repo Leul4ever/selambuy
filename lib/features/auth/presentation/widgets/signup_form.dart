@@ -98,30 +98,31 @@ class _SignupFormState extends State<SignupForm> {
                 focusNode: _nameFocus,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.person_outline,
-                    color: Color(0xFF4CAF50),
+                    color: colorScheme.primary,
                   ),
                   labelText: 'Full Name',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: colorScheme.onSurface.withOpacity(0.7),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: colorScheme.outline),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
+                    borderSide:
+                        BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide:
-                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        BorderSide(color: colorScheme.primary, width: 2),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[50],
+                  fillColor: colorScheme.surfaceContainerHighest,
                   errorText: state.fieldErrors['name'],
                 ),
                 autofillHints: const [AutofillHints.name],
@@ -137,30 +138,31 @@ class _SignupFormState extends State<SignupForm> {
                 focusNode: _emailFocus,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.email_outlined,
-                    color: Color(0xFF4CAF50),
+                    color: colorScheme.primary,
                   ),
                   labelText: 'Email',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: colorScheme.onSurface.withOpacity(0.7),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: colorScheme.outline),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
+                    borderSide:
+                        BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide:
-                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        BorderSide(color: colorScheme.primary, width: 2),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[50],
+                  fillColor: colorScheme.surfaceContainerHighest,
                   errorText: state.fieldErrors['email'],
                 ),
                 keyboardType: TextInputType.emailAddress,
@@ -177,37 +179,38 @@ class _SignupFormState extends State<SignupForm> {
                 focusNode: _passwordFocus,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: Color(0xFF4CAF50),
+                    color: colorScheme.primary,
                   ),
                   labelText: 'Password',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: colorScheme.onSurface.withOpacity(0.7),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: colorScheme.outline),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
+                    borderSide:
+                        BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide:
-                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        BorderSide(color: colorScheme.primary, width: 2),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[50],
+                  fillColor: colorScheme.surfaceContainerHighest,
                   errorText: state.fieldErrors['password'],
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscurePassword
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Colors.grey,
+                      color: colorScheme.onSurface.withOpacity(0.7),
                     ),
                     onPressed: () =>
                         setState(() => _obscurePassword = !_obscurePassword),
@@ -233,37 +236,38 @@ class _SignupFormState extends State<SignupForm> {
                 focusNode: _confirmPasswordFocus,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: Color(0xFF4CAF50),
+                    color: colorScheme.primary,
                   ),
                   labelText: 'Confirm Password',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    color: colorScheme.onSurface.withOpacity(0.7),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: colorScheme.outline),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
+                    borderSide:
+                        BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide:
-                        const BorderSide(color: Color(0xFF4CAF50), width: 2),
+                        BorderSide(color: colorScheme.primary, width: 2),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[50],
+                  fillColor: colorScheme.surfaceContainerHighest,
                   errorText: state.fieldErrors['confirmPassword'],
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureConfirmPassword
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Colors.grey,
+                      color: colorScheme.onSurface.withOpacity(0.7),
                     ),
                     onPressed: () => setState(() =>
                         _obscureConfirmPassword = !_obscureConfirmPassword),
@@ -282,8 +286,8 @@ class _SignupFormState extends State<SignupForm> {
                 height: 52,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4CAF50),
-                    foregroundColor: Colors.white,
+                    backgroundColor: colorScheme.primary,
+                    foregroundColor: colorScheme.onPrimary,
                     textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -299,9 +303,9 @@ class _SignupFormState extends State<SignupForm> {
                           context.read<SignupBloc>().add(SignupSubmitted());
                         },
                   child: state.status == SignupStatus.loading
-                      ? const CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              colorScheme.onPrimary),
                         )
                       : const Text('Signup'),
                 ),
@@ -313,7 +317,7 @@ class _SignupFormState extends State<SignupForm> {
                   Expanded(
                     child: Divider(
                       thickness: 1,
-                      color: Colors.grey[300],
+                      color: colorScheme.outline.withOpacity(0.5),
                     ),
                   ),
                   Padding(
@@ -321,7 +325,7 @@ class _SignupFormState extends State<SignupForm> {
                     child: Text(
                       'or',
                       style: TextStyle(
-                        color: Colors.grey[600],
+                        color: colorScheme.onSurface.withOpacity(0.7),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -329,7 +333,7 @@ class _SignupFormState extends State<SignupForm> {
                   Expanded(
                     child: Divider(
                       thickness: 1,
-                      color: Colors.grey[300],
+                      color: colorScheme.outline.withOpacity(0.5),
                     ),
                   ),
                 ],
@@ -345,21 +349,22 @@ class _SignupFormState extends State<SignupForm> {
                     height: 52,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.grey[300]!),
+                        side: BorderSide(
+                            color: colorScheme.outline.withOpacity(0.5)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        backgroundColor: Colors.white,
+                        backgroundColor: colorScheme.surface,
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
                         // TODO: Implement Google sign-in
                       },
-                      child: const Icon(
-                        Icons.g_mobiledata,
-                        size: 24,
-                        color: Colors.red,
-                      ),
+                                             child: Icon(
+                         Icons.g_mobiledata,
+                         size: 24,
+                         color: Colors.red, // Google brand color
+                       ),
                     ),
                   ),
                   // Facebook sign in button
@@ -368,17 +373,18 @@ class _SignupFormState extends State<SignupForm> {
                     height: 52,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.grey[300]!),
+                        side: BorderSide(
+                            color: colorScheme.outline.withOpacity(0.5)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        backgroundColor: Colors.white,
+                        backgroundColor: colorScheme.surface,
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
                         // TODO: Implement Facebook sign-in
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.facebook,
                         size: 24,
                         color: Color(0xFF1877F2),
@@ -391,21 +397,21 @@ class _SignupFormState extends State<SignupForm> {
                     height: 52,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.grey[300]!),
+                        side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        backgroundColor: Colors.white,
+                        backgroundColor: colorScheme.surface,
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
                         // TODO: Implement Twitter sign-in
                       },
-                      child: const Icon(
-                        Icons.close,
-                        size: 24,
-                        color: Colors.black,
-                      ),
+                                             child: Icon(
+                         Icons.close,
+                         size: 24,
+                         color: Color(0xFF1DA1F2), // Twitter/X brand color
+                       ),
                     ),
                   ),
                 ],
@@ -419,15 +425,15 @@ class _SignupFormState extends State<SignupForm> {
                     text: TextSpan(
                       text: "Already have an account? ",
                       style: TextStyle(
-                        color: Colors.grey[600],
+                        color: colorScheme.onSurface.withOpacity(0.7),
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
                       ),
                       children: [
                         TextSpan(
                           text: 'Sign In',
-                          style: const TextStyle(
-                            color: Color(0xFF4CAF50),
+                          style: TextStyle(
+                            color: colorScheme.primary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

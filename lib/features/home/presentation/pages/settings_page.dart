@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/theme/theme_cubit.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -9,9 +10,9 @@ class SettingsPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: colorScheme.background,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         title: const Text('Settings'),
         leading: IconButton(
@@ -47,58 +48,63 @@ class SettingsPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        Column(
-                          children: [
-                            ListTile(
-                              leading: const Icon(Icons.light_mode),
-                              title: const Text('Light Mode'),
-                              trailing: Radio<ThemeMode>(
-                                value: ThemeMode.light,
-                                groupValue: ThemeProvider.currentThemeMode,
-                                onChanged: (ThemeMode? value) {
-                                  if (value != null) {
-                                    ThemeProvider.setCurrentThemeMode(value);
-                                    // Force app rebuild by navigating to same route
-                                    Navigator.pushReplacementNamed(
-                                        context, '/home');
-                                  }
-                                },
-                              ),
-                            ),
-                            ListTile(
-                              leading: const Icon(Icons.dark_mode),
-                              title: const Text('Dark Mode'),
-                              trailing: Radio<ThemeMode>(
-                                value: ThemeMode.dark,
-                                groupValue: ThemeProvider.currentThemeMode,
-                                onChanged: (ThemeMode? value) {
-                                  if (value != null) {
-                                    ThemeProvider.setCurrentThemeMode(value);
-                                    // Force app rebuild by navigating to same route
-                                    Navigator.pushReplacementNamed(
-                                        context, '/home');
-                                  }
-                                },
-                              ),
-                            ),
-                            ListTile(
-                              leading:
-                                  const Icon(Icons.settings_system_daydream),
-                              title: const Text('System Default'),
-                              trailing: Radio<ThemeMode>(
-                                value: ThemeMode.system,
-                                groupValue: ThemeProvider.currentThemeMode,
-                                onChanged: (ThemeMode? value) {
-                                  if (value != null) {
-                                    ThemeProvider.setCurrentThemeMode(value);
-                                    // Force app rebuild by navigating to same route
-                                    Navigator.pushReplacementNamed(
-                                        context, '/home');
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
+                        BlocBuilder<ThemeCubit, ThemeMode>(
+                          builder: (context, themeMode) {
+                            return Column(
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.light_mode),
+                                  title: const Text('Light Mode'),
+                                  trailing: Radio<ThemeMode>(
+                                    value: ThemeMode.light,
+                                    groupValue: themeMode,
+                                    onChanged: (ThemeMode? value) {
+                                      if (value != null) {
+                                        context.read<ThemeCubit>().setTheme(value);
+                                      }
+                                    },
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.dark_mode),
+                                  title: const Text('Dark Mode'),
+                                  trailing: Radio<ThemeMode>(
+                                    value: ThemeMode.dark,
+                                    groupValue: themeMode,
+                                    onChanged: (ThemeMode? value) {
+                                      if (value != null) {
+                                        context.read<ThemeCubit>().setTheme(value);
+                                      }
+                                    },
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.settings_system_daydream),
+                                  title: const Text('System Default'),
+                                  trailing: Radio<ThemeMode>(
+                                    value: ThemeMode.system,
+                                    groupValue: themeMode,
+                                    onChanged: (ThemeMode? value) {
+                                      if (value != null) {
+                                        context.read<ThemeCubit>().setTheme(value);
+                                      }
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                // Quick Toggle Switch
+                                SwitchListTile(
+                                  title: const Text('Dark Mode Toggle'),
+                                  subtitle: const Text('Quick switch between light and dark'),
+                                  value: themeMode == ThemeMode.dark,
+                                  onChanged: (bool value) {
+                                    final newTheme = value ? ThemeMode.dark : ThemeMode.light;
+                                    context.read<ThemeCubit>().setTheme(newTheme);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),

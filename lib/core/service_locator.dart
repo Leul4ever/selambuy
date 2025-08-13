@@ -6,6 +6,7 @@ import '../features/auth/domain/usecases/login_usecase.dart';
 import '../features/auth/domain/usecases/signup_usecase.dart';
 import '../features/auth/presentation/blocs/login_bloc.dart';
 import '../features/auth/presentation/blocs/signup_bloc.dart';
+import 'theme/theme_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -23,4 +24,7 @@ void init() {
   // BLoCs
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
   sl.registerFactory(() => SignupBloc(signupUseCase: sl()));
+
+  // Theme
+  sl.registerLazySingleton(() => ThemeCubit());
 }

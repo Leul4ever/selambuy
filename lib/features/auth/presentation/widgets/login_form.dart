@@ -150,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
                                   const EdgeInsets.symmetric(horizontal: 8),
                               child: Text('OR',
                                   style: TextStyle(
-                                      color: colorScheme.onSurfaceVariant)),
+                                      color: colorScheme.onSurface)),
                             ),
                             const Expanded(child: Divider()),
                           ],

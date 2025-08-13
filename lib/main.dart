@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/auth/presentation/pages/login_screen.dart';
 import 'features/auth/presentation/pages/signup_page.dart';
 import 'features/auth/presentation/pages/forgot_password_page.dart';
@@ -8,7 +9,8 @@ import 'features/home/presentation/pages/home_page.dart';
 import 'features/home/presentation/pages/settings_page.dart';
 import 'features/notifications/presentation/routes/notification_routes.dart';
 import 'core/service_locator.dart';
-import 'core/theme_provider.dart';
+import 'core/theme/app_themes.dart';
+import 'core/theme/theme_cubit.dart';
 
 void main() {
   init();
@@ -20,41 +22,57 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'YeneGebiya',
-      themeMode: ThemeProvider.currentThemeMode, // Use current theme mode
-      theme: ThemeProvider.lightTheme,
-      darkTheme: ThemeProvider.darkTheme,
-      initialRoute: '/',
-      onGenerateRoute: (settings) {
-        // Delegate notification routes
-        if (settings.name?.startsWith('/notifications') ?? false) {
-          return NotificationRoutes.onGenerateRoute(settings);
-        }
-        // Default routes
-        switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (_) => const SplashPage());
-          case '/onboarding':
-            return MaterialPageRoute(builder: (_) => const OnboardingScreen());
-          case '/home':
-            return MaterialPageRoute(builder: (_) => const HomePage());
-          case '/login':
-            return MaterialPageRoute(builder: (_) => const LoginScreen());
-          case '/signup':
-            return MaterialPageRoute(builder: (_) => const SignupPage());
-          case '/forgot-password':
-            return MaterialPageRoute(
-                builder: (_) => const ForgotPasswordPage());
-          case '/settings':
-            return MaterialPageRoute(builder: (_) => const SettingsPage());
-          default:
-            return MaterialPageRoute(
-              builder: (_) => const Scaffold(
-                body: Center(child: Text('Route not found')),
-              ),
-            );
-        }
+    return BlocProvider(
+      create: (context) => sl<ThemeCubit>(),
+      child: const _AppContent(),
+    );
+  }
+}
+
+class _AppContent extends StatelessWidget {
+  const _AppContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ThemeCubit, ThemeMode>(
+      builder: (context, themeMode) {
+        return MaterialApp(
+          title: 'YeneGebiya',
+          themeMode: themeMode,
+          theme: AppThemes.lightTheme,
+          darkTheme: AppThemes.darkTheme,
+          initialRoute: '/',
+          onGenerateRoute: (settings) {
+            // Delegate notification routes
+            if (settings.name?.startsWith('/notifications') ?? false) {
+              return NotificationRoutes.onGenerateRoute(settings);
+            }
+            // Default routes
+            switch (settings.name) {
+              case '/':
+                return MaterialPageRoute(builder: (_) => const SplashPage());
+              case '/onboarding':
+                return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+              case '/home':
+                return MaterialPageRoute(builder: (_) => const HomePage());
+              case '/login':
+                return MaterialPageRoute(builder: (_) => const LoginScreen());
+              case '/signup':
+                return MaterialPageRoute(builder: (_) => const SignupPage());
+              case '/forgot-password':
+                return MaterialPageRoute(
+                    builder: (_) => const ForgotPasswordPage());
+              case '/settings':
+                return MaterialPageRoute(builder: (_) => const SettingsPage());
+              default:
+                return MaterialPageRoute(
+                  builder: (_) => const Scaffold(
+                    body: Center(child: Text('Route not found')),
+                  ),
+                );
+            }
+          },
+        );
       },
     );
   }
