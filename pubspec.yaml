@@ -33,6 +33,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   get_it: ^7.6.0
   equatable: ^2.0.5
+  flutter_svg: ^2.0.9
 
 
 
@@ -66,6 +67,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/image.png
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

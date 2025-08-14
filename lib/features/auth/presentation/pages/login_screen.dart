@@ -4,6 +4,7 @@ import '../blocs/login_bloc.dart';
 import '../blocs/login_event.dart';
 import '../blocs/login_state.dart';
 import '../../../../core/service_locator.dart';
+import '../widgets/social_media_icons.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -378,42 +379,37 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                                             // Google sign in button
-                       SizedBox(
-                         width: 52,
-                         height: 52,
-                         child: OutlinedButton(
-                           style: OutlinedButton.styleFrom(
-                             side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(16),
-                             ),
-                             backgroundColor: colorScheme.surface,
-                             padding: EdgeInsets.zero,
-                           ),
+                      // Google sign in button
+                      SizedBox(
+                        width: 52,
+                        height: 52,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                            shape: const CircleBorder(),
+                            backgroundColor: colorScheme.surface,
+                            padding: EdgeInsets.zero,
+                          ),
                           onPressed: () {
                             // TODO: Implement Google sign-in
                           },
-                                                     child: Icon(
-                             Icons.g_mobiledata,
-                             size: 24,
-                             color: Colors.red, // Google brand color
-                           ),
+                          child: const GoogleIcon(
+                            size: 24,
+                            backgroundColor: Colors.white,
+                          ),
                         ),
                       ),
-                                             // Facebook sign in button
-                       SizedBox(
-                         width: 52,
-                         height: 52,
-                         child: OutlinedButton(
-                           style: OutlinedButton.styleFrom(
-                             side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(16),
-                             ),
-                             backgroundColor: colorScheme.surface,
-                             padding: EdgeInsets.zero,
-                           ),
+                      // Facebook sign in button
+                      SizedBox(
+                        width: 52,
+                        height: 52,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                            shape: const CircleBorder(),
+                            backgroundColor: colorScheme.surface,
+                            padding: EdgeInsets.zero,
+                          ),
                           onPressed: () {
                             // TODO: Implement Facebook sign-in
                           },
@@ -424,27 +420,24 @@ class _LoginScreenBodyState extends State<_LoginScreenBody> {
                           ),
                         ),
                       ),
-                                             // Twitter (X) sign in button
-                       SizedBox(
-                         width: 52,
-                         height: 52,
-                         child: OutlinedButton(
-                           style: OutlinedButton.styleFrom(
-                             side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(16),
-                             ),
-                             backgroundColor: colorScheme.surface,
-                             padding: EdgeInsets.zero,
-                           ),
+                      // X (Twitter) sign in button
+                      SizedBox(
+                        width: 52,
+                        height: 52,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+                            shape: const CircleBorder(),
+                            backgroundColor: Colors.black,
+                            padding: EdgeInsets.zero,
+                          ),
                           onPressed: () {
-                            // TODO: Implement Twitter sign-in
+                            // TODO: Implement X sign-in
                           },
-                                                     child: Icon(
-                             Icons.close,
-                             size: 24,
-                             color: Color(0xFF1DA1F2), // Twitter/X brand color
-                           ),
+                          child: const XIcon(
+                            size: 24,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],

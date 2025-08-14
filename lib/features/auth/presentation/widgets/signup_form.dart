@@ -5,6 +5,7 @@ import '../blocs/signup_event.dart';
 import '../blocs/signup_state.dart';
 import 'primary_button.dart';
 import 'password_strength_indicator.dart';
+import 'social_media_icons.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -351,20 +352,17 @@ class _SignupFormState extends State<SignupForm> {
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
                             color: colorScheme.outline.withOpacity(0.5)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        shape: const CircleBorder(),
                         backgroundColor: colorScheme.surface,
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
                         // TODO: Implement Google sign-in
                       },
-                                             child: Icon(
-                         Icons.g_mobiledata,
-                         size: 24,
-                         color: Colors.red, // Google brand color
-                       ),
+                      child: const GoogleIcon(
+                        size: 24,
+                        backgroundColor: Colors.white,
+                      ),
                     ),
                   ),
                   // Facebook sign in button
@@ -375,43 +373,38 @@ class _SignupFormState extends State<SignupForm> {
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
                             color: colorScheme.outline.withOpacity(0.5)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        shape: const CircleBorder(),
                         backgroundColor: colorScheme.surface,
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
                         // TODO: Implement Facebook sign-in
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.facebook,
                         size: 24,
                         color: Color(0xFF1877F2),
                       ),
                     ),
                   ),
-                  // Twitter (X) sign in button
+                  // X (Twitter) sign in button
                   SizedBox(
                     width: 52,
                     height: 52,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        backgroundColor: colorScheme.surface,
+                        shape: const CircleBorder(),
+                        backgroundColor: Colors.black,
                         padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
-                        // TODO: Implement Twitter sign-in
+                        // TODO: Implement X sign-in
                       },
-                                             child: Icon(
-                         Icons.close,
-                         size: 24,
-                         color: Color(0xFF1DA1F2), // Twitter/X brand color
-                       ),
+                      child: const XIcon(
+                        size: 24,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
