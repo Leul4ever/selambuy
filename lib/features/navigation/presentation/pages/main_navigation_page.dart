@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/navigation_bloc.dart';
 import '../widgets/bottom_navigation_bar_widget.dart';
 import '../../../../features/home/presentation/pages/home_page.dart';
+import '../../../../features/profile/presentation/bloc/profile_bloc.dart';
+import '../../../../features/profile/presentation/pages/profile_page.dart';
+import '../../../../core/service_locator.dart';
 import 'categories_page.dart';
 import 'cart_page.dart';
 import 'wishlist_page.dart';
-import 'profile_page.dart';
 
 class MainNavigationPage extends StatefulWidget {
   const MainNavigationPage({Key? key}) : super(key: key);
@@ -20,18 +22,21 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
-        return Scaffold(
-          body: IndexedStack(
-            index: state.selectedIndex,
-            children: const [
-              HomePage(),
-              CategoriesPage(),
-              CartPage(),
-              WishlistPage(),
-              ProfilePage(),
-            ],
+        return BlocProvider(
+          create: (context) => sl<ProfileBloc>(),
+          child: Scaffold(
+            body: IndexedStack(
+              index: state.selectedIndex,
+              children: const [
+                HomePage(),
+                CategoriesPage(),
+                CartPage(),
+                WishlistPage(),
+                ProfilePage(),
+              ],
+            ),
+            bottomNavigationBar: const BottomNavigationBarWidget(),
           ),
-          bottomNavigationBar: const BottomNavigationBarWidget(),
         );
       },
     );

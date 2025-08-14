@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../presentation/pages/main_navigation_screen.dart';
-import '../../features/auth/presentation/pages/login_screen.dart';
-import '../../features/auth/presentation/pages/signup_page.dart';
-import '../../features/auth/presentation/pages/forgot_password_page.dart';
+import '../features/navigation/presentation/pages/main_navigation_page.dart';
+import '../features/auth/presentation/pages/login_screen.dart';
+import '../features/auth/presentation/pages/signup_page.dart';
+import '../features/auth/presentation/pages/forgot_password_page.dart';
 
 class AppRoutes {
   static const String mainNavigation = '/';
@@ -14,7 +14,7 @@ class AppRoutes {
     switch (settings.name) {
       case mainNavigation:
         return MaterialPageRoute(
-          builder: (_) => const MainNavigationScreen(),
+          builder: (_) => const MainNavigationPage(),
         );
       case login:
         return MaterialPageRoute(
