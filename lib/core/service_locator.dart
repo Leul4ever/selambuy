@@ -23,7 +23,7 @@ void init() {
   sl.registerLazySingleton(() => LoginUseCase(sl()));
   sl.registerLazySingleton(() => SignupUseCase(sl()));
 
-  // BLoCs
+  // BLoCs - Using the correct implementations from features directory
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
   sl.registerFactory(() => SignupBloc(signupUseCase: sl()));
   sl.registerFactory(() => NavigationBloc());

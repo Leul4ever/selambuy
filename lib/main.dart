@@ -43,7 +43,8 @@ class _AppContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, AppThemeMode>(
       builder: (context, appThemeMode) {
-        final themeMode = context.read<ThemeCubit>().getMaterialThemeMode(context);
+        final themeMode =
+            context.read<ThemeCubit>().getMaterialThemeMode(context);
         return MaterialApp(
           title: 'YeneGebiya',
           themeMode: themeMode,
@@ -64,7 +65,8 @@ class _AppContent extends StatelessWidget {
               case '/':
                 return MaterialPageRoute(builder: (_) => const SplashPage());
               case '/onboarding':
-                return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+                return MaterialPageRoute(
+                    builder: (_) => const OnboardingScreen());
               case '/home':
                 return MaterialPageRoute(builder: (_) => const HomePage());
               case '/main-navigation':
@@ -77,7 +79,8 @@ class _AppContent extends StatelessWidget {
                 return MaterialPageRoute(
                     builder: (_) => const ForgotPasswordPage());
               case '/settings':
-                return MaterialPageRoute(builder: (_) => const SettingsScreen());
+                return MaterialPageRoute(
+                    builder: (_) => const SettingsScreen());
               default:
                 return MaterialPageRoute(
                   builder: (_) => const Scaffold(
