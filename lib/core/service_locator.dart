@@ -6,6 +6,8 @@ import '../features/auth/domain/usecases/login_usecase.dart';
 import '../features/auth/domain/usecases/signup_usecase.dart';
 import '../features/auth/presentation/blocs/login_bloc.dart';
 import '../features/auth/presentation/blocs/signup_bloc.dart';
+import '../features/navigation/presentation/bloc/navigation_bloc.dart';
+import '../features/cart/presentation/bloc/cart_bloc.dart';
 import 'theme/theme_cubit.dart';
 
 final sl = GetIt.instance;
@@ -24,6 +26,8 @@ void init() {
   // BLoCs
   sl.registerFactory(() => LoginBloc(loginUseCase: sl()));
   sl.registerFactory(() => SignupBloc(signupUseCase: sl()));
+  sl.registerFactory(() => NavigationBloc());
+  sl.registerFactory(() => CartBloc());
 
   // Theme
   sl.registerLazySingleton(() => ThemeCubit());

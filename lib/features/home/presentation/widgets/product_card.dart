@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'verified_badge.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUrl;
@@ -17,8 +16,6 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    // Assume user is not logged in for now
-    bool isLoggedIn = false;
     return SizedBox(
       height: 220, // Increased from 180 to 220 to prevent overflow
       child: Card(
@@ -101,41 +98,7 @@ class ProductCard extends StatelessWidget {
                           minHeight: 32,
                         ),
                         onPressed: () {
-                          if (!isLoggedIn) {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Authentication Required'),
-                                content: const Text(
-                                  'You need to log in or register to continue.',
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pushNamed('/login');
-                                    },
-                                    child: const Text('Login'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context)
-                                          .pushNamed('/signup');
-                                    },
-                                    child: const Text('Register'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: const Text('Cancel'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            if (onAddToCart != null) onAddToCart!();
-                          }
+                          if (onAddToCart != null) onAddToCart!();
                         },
                         tooltip: 'Add to cart',
                       ),

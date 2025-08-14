@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      Navigator.of(context).pushReplacementNamed('/login');
+      Navigator.of(context).pushReplacementNamed('/main-navigation');
     }
   }
 
@@ -170,7 +170,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                         ),
                         onPressed: () => Navigator.of(context)
-                            .pushReplacementNamed('/login'),
+                            .pushReplacementNamed('/main-navigation'),
                         child: const Text('Let\'s Get Started'),
                       ),
                     ),
@@ -191,7 +191,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 foregroundColor: const Color(0xFF2E7D32),
                               ),
                               onPressed: () => Navigator.of(context)
-                                  .pushReplacementNamed('/login'),
+                                  .pushReplacementNamed('/main-navigation'),
                               child: const Text(
                                 'Skip',
                                 style: TextStyle(

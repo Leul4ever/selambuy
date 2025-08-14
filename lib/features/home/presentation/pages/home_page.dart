@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../notifications/presentation/pages/notification_screen.dart';
 import '../widgets/product_card.dart';
 import '../../../../core/theme/theme_cubit.dart';
+import '../../../cart/presentation/bloc/cart_bloc.dart';
+import '../../../navigation/presentation/bloc/navigation_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -70,68 +71,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final isTablet = MediaQuery.of(context).size.width > 600;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final appBarHeight = AppBar().preferredSize.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        title: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/images/image.png',
-                width: 32,
-                height: 32,
-                fit: BoxFit.contain,
-              ),
-            ),
-            const SizedBox(width: 8),
-            const Text('Home'),
-          ],
-        ),
-        actions: [
-          // Theme toggle button
-          BlocBuilder<ThemeCubit, ThemeMode>(
-            builder: (context, themeMode) {
-              return IconButton(
-                icon: Icon(
-                  themeMode == ThemeMode.dark
-                      ? Icons.light_mode
-                      : Icons.dark_mode,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () {
-                  final newMode = themeMode == ThemeMode.dark
-                      ? ThemeMode.light
-                      : ThemeMode.dark;
-                  context.read<ThemeCubit>().setTheme(newMode);
-                },
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
-            tooltip: 'Notifications',
-            onPressed: () {
-              if (NotificationScreen.isLoggedIn) {
-                Navigator.of(context).pushNamed('/notifications');
-              } else {
-                Navigator.of(context).pushNamed('/login');
-              }
-            },
-          ),
-        ],
-      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -140,6 +83,77 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Column(
             children: [
+              // Header section
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        'assets/images/image.png',
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome to Gebiya',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: colorScheme.onSurface,
+                                ),
+                          ),
+                          Text(
+                            'Discover amazing products',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                                         // Notification button
+                     IconButton(
+                       icon: const Icon(Icons.notifications_none),
+                       onPressed: () {
+                         Navigator.of(context).pushNamed('/notifications');
+                       },
+                       tooltip: 'Notifications',
+                     ),
+                     // Theme toggle button
+                     BlocBuilder<ThemeCubit, AppThemeMode>(
+                       builder: (context, appThemeMode) {
+                         return IconButton(
+                           icon: Icon(
+                             appThemeMode == AppThemeMode.dark
+                                 ? Icons.light_mode
+                                 : Icons.dark_mode,
+                             color: colorScheme.primary,
+                           ),
+                           onPressed: () {
+                             final newMode = appThemeMode == AppThemeMode.dark
+                                 ? AppThemeMode.light
+                                 : AppThemeMode.dark;
+                             context.read<ThemeCubit>().setTheme(newMode);
+                           },
+                         );
+                       },
+                     ),
+                  ],
+                ),
+              ),
               // Search bar
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
@@ -209,7 +223,33 @@ class _HomePageState extends State<HomePage> {
                       imageUrl: product['image']!,
                       name: product['name']!,
                       price: product['price']!,
-                      onAddToCart: () {},
+                      onAddToCart: () {
+                        // Add item to cart for demo purposes
+                        final cartItem = CartItem(
+                          id: DateTime.now().millisecondsSinceEpoch.toString(),
+                          name: product['name']!,
+                          price: double.parse(
+                              product['price']!.replaceAll(' ', '')),
+                          imageUrl: product['image']!,
+                        );
+                        context.read<CartBloc>().add(AddItemToCart(cartItem));
+
+                        // Show snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('${product['name']} added to cart'),
+                            duration: const Duration(seconds: 2),
+                            action: SnackBarAction(
+                              label: 'View Cart',
+                              onPressed: () {
+                                context
+                                    .read<NavigationBloc>()
+                                    .add(const NavigationTabChanged(2));
+                              },
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
