@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 enum AppThemeMode { light, dark, system }
 
@@ -12,24 +11,13 @@ class ThemeCubit extends Cubit<AppThemeMode> {
   }
 
   Future<void> _loadTheme() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final themeIndex = prefs.getInt(_themeKey) ?? 0;
-      emit(AppThemeMode.values[themeIndex]);
-    } catch (e) {
-      emit(AppThemeMode.light);
-    }
+    // For now, just use default theme to avoid storage issues
+    emit(AppThemeMode.light);
   }
 
   Future<void> setTheme(AppThemeMode themeMode) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_themeKey, themeMode.index);
-      emit(themeMode);
-    } catch (e) {
-      // If saving fails, still update the UI
-      emit(themeMode);
-    }
+    // For now, just update the UI without persistence
+    emit(themeMode);
   }
 
   ThemeMode getMaterialThemeMode(BuildContext context) {
