@@ -8,11 +8,11 @@ class ProfileMenuListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 32),
+          const SizedBox(height: 12),
           FutureBuilder<List<ProfileMenuItemModel>>(
             future: ProfileLocalDataSourceImpl().getProfileMenuItems(),
             builder: (context, snapshot) {
@@ -40,7 +40,7 @@ class ProfileMenuListWidget extends StatelessWidget {
 
   Widget _buildMenuItem(BuildContext context, ProfileMenuItemModel item) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),

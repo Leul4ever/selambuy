@@ -9,7 +9,7 @@ class OrderStatusGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -20,7 +20,7 @@ class OrderStatusGridWidget extends StatelessWidget {
                   color: const Color(0xFF2E7D32),
                 ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
           FutureBuilder<List<OrderStatusModel>>(
             future: ProfileLocalDataSourceImpl().getOrderStatuses(),
             builder: (context, snapshot) {
@@ -40,8 +40,8 @@ class OrderStatusGridWidget extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
                   childAspectRatio: 1.2,
                 ),
                 itemCount: orderStatuses.length,
@@ -86,7 +86,7 @@ class OrderStatusGridWidget extends StatelessWidget {
               size: 24,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Text(
             status.title,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_profile_model.dart';
 import '../models/order_status_model.dart';
 import '../models/profile_menu_item_model.dart';
@@ -17,12 +16,12 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
   static const String _profileKey = 'user_profile';
   static const String _orderStatusesKey = 'order_statuses';
   static const String _profileMenuItemsKey = 'profile_menu_items';
+  static final Map<String, String> _memoryStore = <String, String>{};
 
   @override
   Future<UserProfileModel?> getUserProfile() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final profileJson = prefs.getString(_profileKey);
+      final profileJson = _memoryStore[_profileKey];
       if (profileJson != null) {
         return UserProfileModel.fromJson(json.decode(profileJson));
       }
@@ -35,8 +34,7 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
   @override
   Future<void> saveUserProfile(UserProfileModel profile) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_profileKey, json.encode(profile.toJson()));
+      _memoryStore[_profileKey] = json.encode(profile.toJson());
     } catch (e) {
       throw Exception('Failed to save profile data');
     }
@@ -113,8 +111,7 @@ class ProfileLocalDataSourceImpl implements ProfileLocalDataSource {
   @override
   Future<void> clearProfileData() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove(_profileKey);
+      _memoryStore.remove(_profileKey);
     } catch (e) {
       throw Exception('Failed to clear profile data');
     }

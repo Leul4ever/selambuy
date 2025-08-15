@@ -8,10 +8,10 @@ class LogoutButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          const SizedBox(height: 32),
+          const SizedBox(height: 12),
           BlocListener<ProfileBloc, ProfileState>(
             listener: (context, state) {
               if (state is ProfileLoggedOut) {

@@ -70,6 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             if (state is ProfileLoaded) {
               return SingleChildScrollView(
+                padding: const EdgeInsets.only(bottom: 12),
                 child: Column(
                   children: [
                     // Profile Header
@@ -84,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Logout Button
                     const LogoutButtonWidget(),
 
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 12),
                   ],
                 ),
               );

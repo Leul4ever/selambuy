@@ -12,7 +12,7 @@ class ProfileHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(8),
       child: Column(
         children: [
           // Title only (no back button since this is a tab)
@@ -24,61 +24,36 @@ class ProfileHeaderWidget extends StatelessWidget {
                 ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
 
-          // Profile picture with camera overlay
-          Stack(
-            children: [
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFF2E7D32),
-                    width: 3,
-                  ),
-                ),
-                child: ClipOval(
-                  child: Image.network(
-                    profile.profileImageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
-                      color: Colors.grey[300],
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Colors.grey[600],
-                      ),
-                    ),
+          // Profile picture
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFF2E7D32),
+                width: 3,
+              ),
+            ),
+            child: ClipOval(
+              child: Image.network(
+                profile.profileImageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Container(
+                  color: Colors.grey[300],
+                  child: Icon(
+                    Icons.person,
+                    size: 50,
+                    color: Colors.grey[600],
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF2E7D32),
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 3,
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.camera_alt,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 4),
 
           // User name and profession
           Text(
@@ -98,21 +73,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                 ),
           ),
 
-          const SizedBox(height: 16),
-
-          // Decorative curved band
-          Container(
-            height: 3,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xFFE91E63),
-                  const Color(0xFF9C27B0),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          const SizedBox(height: 6),
         ],
       ),
     );
